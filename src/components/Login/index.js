@@ -11,7 +11,7 @@ function Login(){
 
   const [userInfo, setUserInfo] = useState({email: '', password: ''})
   const navigate = useNavigate();
-  const {setToken} = useContext(UserContext);
+  const {setToken,setUserName,setPlan} = useContext(UserContext);
   
   function handleLogin(e){
     e.preventDefault();
@@ -21,6 +21,8 @@ function Login(){
     promise.then((promise)=> {
       promise.data.membership === null ? navigate ('/subscriptions') : navigate ('/home') ;
       setToken(promise.data.token);
+      setUserName(promise.data.name);
+      setPlan(promise.data.membership);
     });
     promise.catch((error)=> alert(`Erro no login: ${error.response.data.message}`));
   }

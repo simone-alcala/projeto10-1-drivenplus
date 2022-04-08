@@ -14,16 +14,25 @@ function Signup(){
     const URL = 'https://mock-api.driven.com.br/api/v4/driven-plus/auth/sign-up';
     const promise = axios.post(URL,userInfo);
     promise.then((promise)=> navigate('/'));
-    promise.catch((error)=> alert(`Erro no cadastro: ${error.response.status}`));
+    promise.catch((error)=> alert(`Erro no cadastro: \n\n${error.response.status} ${error.response.data.message}`));
   }
 
-   return(
+  function validateCPF(cpf){
+    return cpf
+      .replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1');
+  }
+
+  return(
     <Container>
       <form onSubmit={handleLogin}>
         <input type='text' placeholder='Nome' value={userInfo.name} 
           onChange={ e => setUserInfo({...userInfo, name: e.target.value }) }/>
         <input type='text' placeholder='CPF' value={userInfo.cpf} 
-          onChange={ e => setUserInfo({...userInfo, cpf: e.target.value }) }/>
+          onChange={ e => setUserInfo({...userInfo, cpf: validateCPF(e.target.value) }) }/>
         <input type='email' placeholder='E-mail' value={userInfo.email} 
           onChange={ e => setUserInfo({...userInfo, email: e.target.value }) }/>    
         <input type='password' placeholder='Senha' value={userInfo.password}

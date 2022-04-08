@@ -17,7 +17,7 @@ function Subscriptions(){
       const CONFIG =  { headers: { Authorization: `Bearer ${token}` } };
       const promise = axios.get(URL,CONFIG);
       promise.then((promise)=> setPlans([...promise.data]));
-      promise.catch((error)=> alert(`Erro ao carregar planos: ${error.response.status}`));
+      promise.catch((error)=> alert(`Erro ao carregar planos: \n\n${error.response.status} ${error.response.data.message}`));
     }
   },[token]);
 
@@ -32,7 +32,6 @@ function Subscriptions(){
           </div>
         )           
       }
-      console.log('teste');
     </Container>
   );
 }

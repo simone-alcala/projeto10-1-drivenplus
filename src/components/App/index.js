@@ -11,12 +11,16 @@ import UserContext from './../../contexts/UserContext';
 
 function App(){
   const [token, setToken] = useState('');
+  const [userName, setUserName] = useState('');
+  const [plan, setPlan] = useState({});
+
   return(
-    <UserContext.Provider value={{token,setToken}}>
+    <UserContext.Provider value={{token,setToken,plan,setPlan,userName, setUserName}}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={ <Login /> } />
           <Route path='/sign-up' element={ <Signup /> } />
+          <Route path='/planos' element={ <Subscriptions /> } />
           <Route path='/subscriptions' element={ <Subscriptions /> } />
           <Route path='/subscriptions:planId' element={ <Subscription /> } />
           <Route path='/home' element={ <Home /> } />
